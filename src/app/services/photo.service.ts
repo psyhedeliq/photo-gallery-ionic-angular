@@ -8,10 +8,17 @@ import {
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Preferences } from '@capacitor/preferences';
 
+export interface UserPhoto {
+  filepath: string;
+  webviewPath?: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class PhotoService {
+  public photos: UserPhoto[] = [];
+
   constructor() {}
 
   public async addNewToGallery() {
@@ -20,6 +27,11 @@ export class PhotoService {
       resultType: CameraResultType.Uri,
       source: CameraSource.Camera,
       quality: 100,
+    });
+
+    this.photos.unshift({
+      filepath: 'soon...',
+      webviewPath: capturedPhoto.webPath,
     });
   }
 }
